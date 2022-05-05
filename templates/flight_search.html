@@ -1,0 +1,91 @@
+<html>
+<head>
+</head>
+<body>
+<h2>Find your flight here {{username}}</h2>
+
+<form action="/flight_finder" method="POST">
+	<label for="origin_search1">Origin city/airport name:</label>
+    <input type="text" id="origin_search1" name="origin_search1" required/>
+
+	<label for="destination_search1">Destination city/airport name:</label>
+    <input type="text" id="destination_search1" name="destination_search1" required/>
+
+	<label for="dept_date_search1">Departure date:</label>
+    <input type="date" id="dept_date_search1" name="dept_date_search1" required/>
+
+	<label for="return_date_search1">Return date:</label>
+    <input type="date" id="return_date_search1" name="return_date_search1"/></br>
+	<input type="submit" value = SEARCH />
+</form>
+
+<form action="/check_flight_status" method="POST">
+	Enter the following information to check for a flight's status:
+	<label for="airline">Airline name:</label>
+    <input type="text" id="airline" name="airline" required/>
+	<label for="flight_num">Flight number:</label>
+    <input type="text" id="flight_num" name="flight_num" required/>
+	<label for="arrival_date">Arrival date:</label>
+    <input type="date" id="arrival_date" name="arrival_date" required/>
+	<label for="departure_date">Departure date:</label>
+    <input type="date" id="departure_date" name="departure_date"/>
+	<input type="submit" value = CHECK STATUS />
+</form>
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+
+<table>
+	<th>Airline</th>
+	<th>Flight Number</th>
+	<th>Origin Airport</th>
+	<th>Origin City</th>
+	<th>Destination Airport</th>
+	<th>Destination City</th>
+	<th>Departure date</th>
+	<th>Status</th>
+	{% if username %}
+		<th>Purchase</th>
+	{% endif %}
+
+	{% if flights %}
+		{% set flight_counter = 0 %}
+		{% for flight in flights %}
+			{% set flight_counter = loop.index-1 %}
+			<tr>
+				<td>{{flight['airline_name']}}</td>
+				<td>{{flight['flight_num']}}</td>
+				<td>{{flight['origin_airport']}}</td>
+				<td>{{flight['origin_city']}}</td>
+				<td>{{flight['destination_airport']}}</td>
+				<td>{{flight['destination_city']}}</td>
+				<td>{{flight['dept_date_time']}}</td>
+				<td>{{flight['status']}}</td>
+				{% if username %}
+					<td>
+						<form action="/purchase" method="POST">
+							<input type="hidden" id="flight_to_purchase" name="flight_to_purchase" value="{{ flight_counter }}">
+							<input type="submit" value="purchase flight">
+						</form></br>
+					</td>
+				{% endif %}
+			</tr>
+		{% endfor %}
+	{% endif %}
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</table>
+{% if username %}
+<a href="/customer_home">Go back to homepage</a>
+{% endif %}
+{% if not username %}
+<a href="/">Go back to homepage</a>
+{% endif %}
+</body>
+
+
+</html>

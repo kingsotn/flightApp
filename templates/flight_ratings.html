@@ -1,0 +1,32 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <p><h3>Flight Ratings for {{employee_airline}} {{ID}}</h3></p>
+        {% if data %}
+            <table>
+
+                <th>Flight Number</th>		
+                <th>User Email</th>		
+                <th>Comments</th>
+                {% for data in data %}
+                    <tr>
+                        <td>{{data['flight_num']}}</td>
+                        <td>{{data['email']}}</td>
+                        <td>{{data['comment']}}</td>
+                    </tr>
+            </table>           
+                {%endfor%}
+            {%else%}
+                    <p>No ratings available for flight</p>
+            {%endif%}
+            
+        <a href="/staff_home">Go back</a>
+        <a href="/logout">Logout</a>
+        <style type="text/css">
+            table, th, td{
+                border: 1px solid black;
+            }
+        </style>
+    </body>
+</html>

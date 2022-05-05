@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+    <h2>Showing top destinations for {{employee_airline}}:</h2>
+    <h4>Top destinations within last 3 months:</br> {% if destination1 %}{{destination1}}{% endif %}</br>
+        {% if destination2 %}{{destination2}}{% endif %}</br>
+        {% if destination3 %}{{destination3}}{% endif %}</h4>
+    <h4>Top destinations from last year ({{last_year}}):</br>
+        {% if destination4 %}{{destination4}}{% endif %}</br>
+        {% if destination5 %}{{destination5}}{% endif %}</br>
+        {% if destination6 %}{{destination6}}{% endif %}
+    </h4>
+
+    <a href="/staff_home">Go back</a></br>
+</body>
+</html>

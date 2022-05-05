@@ -1,0 +1,27 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <p><h3>Create a new flight for {{employee_airline}}:</h3></p>
+        <form action="/create_flight" method="POST">
+            <input type="text" name = "ID" placeholder="Flight ID" required/> </br>
+            <input type="text" name = "flight_num" placeholder="Flight Number" required/></br>
+            </datalist>
+            <label for="dept_date_time">Departure date & time:</label>
+            <input type="datetime-local" id="dept_date_time" name="dept_date_time"></br>
+          
+            <input type="text" name = "origin_code" placeholder="Origin Code" required/> </br>
+            <input type="text" name = "destination_code" placeholder="Destination Code" required/> </br>
+            <label for="dob">Arriving Date and Time </label>
+            <input type="datetime-local" id="arr_date_time" name="arr_date_time"></br>
+            <input type="text" name="base_price" placeholder="Price" required></br>
+            <input type="text" name="status" placeholder="Flight Status" required></br></br>
+            <input type="submit" name= "createFlight" value = "Create New Flight" />
+	{% if success %}
+		<p>Succesfully created new flight</p>
+	{% endif %}
+
+</form>
+<a href="/staff_home">Go back</a>
+</body>
+</html>

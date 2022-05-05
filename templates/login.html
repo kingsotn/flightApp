@@ -1,0 +1,23 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/loginAuth" method="POST">
+	<input type="radio" id="customer" name="user_type" value="CUSTOMER" required>
+	<label for="customer">Customer</label><br>
+	<input type="radio" id="airline_employee" name="user_type" value="AIRLINE_EMPLOYEE" required>
+	<label for="airline_employee">Airline Employee</label><br>
+	<input type="text" name = "username" placeholder="username (email)" required/> </br>
+	<input type="password" name = "password" placeholder="password" required/></br>
+	<input type="submit" value = Login />
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+
+<a href="/">Go back</a>
+
+</body>
+
+
+</html>

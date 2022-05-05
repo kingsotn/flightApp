@@ -1,0 +1,65 @@
+<html>
+<head>
+</head>
+<body>
+	<h1>Welcome {{name}}!</h1>
+	<h2>What would you like to do today?</h2>
+	<form action="/flight_search" method="GET">
+  		<input type="submit" value="Search for flights">
+	</form></br>
+	<form action="/rate_trip" method="POST">
+  		<input type="submit" value="Rate a recent trip">
+	</form></br>
+	<form action="/purchase_history" method="POST">
+  		<input type="submit" value="View Flight Purchase History">
+	</form></br>
+	<a href="/customer_home">Return to homepage</a></br>
+    <a href="/logout">Logout</a></br>
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+{% if not success %}
+<h2>Please enter the following information</h2>
+	<h3>Flight Details:</h3>
+	<h4>Airline: {{flight['airline_name']}}</h4>
+	<h4>Flight Number: {{flight['flight_num']}}</h4>
+	<h4>Origin: {{flight['origin_airport']}}, {{flight['origin_city']}}, {{flight['origin_country']}}</h4>
+	<h4>Destination: {{flight['destination_airport']}}, {{flight['destination_city']}}, {{flight['destination_country']}}</h4>
+	<h4>Departure Time: {{flight['dept_date_time']}}</h4>
+	<h4>Arrival Time: {{flight['arr_date_time']}}</h4>
+	<h4>The price of a ticket for this flight is: ${{price}}</h4>
+<form action="/make_purchase" method="POST">
+	<label for="flight_class">Travel Class:</label>
+	<input list="classes" name="flight_class" id="flight_class" required/>
+	<datalist id="classes">
+		<option value="ECONOMY CLASS">Economy Class</option>
+		<option value="BUSINESS CLASS">Business Class</option>
+		<option value="FIRST CLASS">First Class</option>
+	</datalist></br>
+	<label for="card_type">Card Type: </label>
+	<input type="text" name = "card_type" id="card_type" placeholder="card_type" maxlength="20" required/> </br>
+	<label for="card_number">Card Number:</label>
+	<input type="tel" id="card_number" name="card_number" pattern="[0-9]{16}" required/> </br>
+	<label for="name_on_card">Name on Card: </label>
+	<input type="text" name="name_on_card" id="name_on_card" placeholder="name on card" maxlength="40" required/> </br>
+	<label for="card_expiry">Expiration Date:</label>
+	<input type="month" id="card_expiry" name="card_expiry" required/> </br>
+	<input type="hidden" id="price" name="price" value="{{ price }}">
+	<input type="submit" value ="Process Purchase" />
+</form>
+{% endif %}
+{% if success %}
+	<p><b>Purchase made successfully!</b></p>
+{% endif %}
+{% if error %}
+	<p class="error"><strong>Error:</strong> {{error}}</p>
+{% endif %}
+<a href="/logout">Logout</a>
+
+</body>
+
+
+</html>

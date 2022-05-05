@@ -1,0 +1,1 @@
+INSERT INTO feedback VALUES ('catherine@yahoo.com', 'DLH1111', 'Lufthansa', '90', '2022-03-13 16:55:00', 'hello')

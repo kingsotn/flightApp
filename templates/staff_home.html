@@ -1,0 +1,125 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<h1>Welcome {{name}}!</h1>
+		<h2>What would you like to do today?</h2>
+
+		<form action="/show_all_flights" method="POST">
+			<input type="submit" value="show all flights">
+		</form>
+		<form action="/staff_home" method="POST">
+			<input type="submit" value="show next thirty days flights">
+		</form>
+		<form action="/airplane_adder" method="POST">
+			<input type="submit" value="Create new Airplane">
+		</form>
+		<form action="/flight_adder" method="POST">
+			<input type="submit" value="Create new Flight">
+		</form>
+		<form action="/airport_adder" method="POST">
+			<input type="submit" value="Create new Airport">
+		</form>
+		<form action="/top_destinations" method="POST">
+			<input type="submit" value="View Top Destinations">
+		</form>
+		<form action="/revenue" method="POST">
+			<input type="submit" value="View Airline Revenue">
+		</form>
+	{% if top_customer %}
+		<p>The top customer for {{last_year}} is {{top_customer}} with {{top_total_tickets}} ticket purchases!</p>
+	{% endif %}
+	{% if all_flights %}
+	<p>Showing all {{employee_airline}} flights</p>
+	{% endif %}
+	{% if range %}
+	<p>Showing {{employee_airline}} flights between {{begin_date}} and {{end_date}}</p>
+	{% endif %}
+	<p><b>Choose Range:</b></p>
+	<form action="flight_date_range" method="POST">
+		<label for="begin_date">From:</label>
+		<input type="month" id="begin_date" name="begin_date" required>
+		<label for="end_date">To:</label>
+		<input type="month" id="end_date" name="end_date" required>
+		<input type="submit" value="show flights within range"></br>
+	</form>
+	<p><b>Choose Origin and/or Destination Airport:</b></p>
+	<form action="flight_origin_destination" method="POST">
+		<label for="origin">Origin Airport:</label>
+		<input type="text" id="origin" name="origin">
+		<label for="destination">Destination Airport:</label>
+		<input type="text" id="destination" name="destination">
+		<input type="submit" value="show relevant flights"></br>
+	</form>
+	<table>
+		<th>ID</th>	
+		<th>Airline Name</th>	
+		<th>Flight Number</th>
+		<th>Depart date time</th>
+		<th>status</th>
+		<th>origin_airport</th>
+		<th>origin_city</th>
+		<th>origin country</th>
+		<th>destination airport</th>
+		<th>destination city</th>
+		<th>destination country</th>
+		<th>More Options</th>
+
+
+		{% if flight_data %}
+			{% set flight_counter = 0 %}	
+			{% for flight in flight_data %}
+				{% set flight_counter = loop.index-1 %}
+				<tr>
+					<td>{{flight['ID']}}</td>
+					<td>{{flight['airline_name']}}</td>
+					<td>{{flight['flight_num']}}</td>
+					<td>{{flight['dept_date_time']}}</td>
+					<td>{{flight['status']}}</td>
+					<td>{{flight['origin_airport']}}</td>
+					<td>{{flight['origin_city']}}</td>
+					<td>{{flight['origin_country']}}</td>
+					<td>{{flight['destination_airport']}}</td>
+					<td>{{flight['destination_city']}}</td>
+					<td>{{flight['destination_country']}}</td>
+					<td>
+						<form action="/modify_status" method="POST">
+							<input type="hidden" id="modify_flight_status" name="modify_flight_status" value="{{ flight_counter }}">
+							<input type="submit" value="modify status">
+
+						</form>
+						<form action="/passengers" method="POST">
+							<input type="hidden" id="check_pass" name="check_pass" value="{{ flight_counter }}">
+							<input type="submit" value="check passengers">
+						</form>
+
+						<form action="/flight_ratings" method="POST">
+							<input type="hidden" id="view_ratings" name="view_ratings" value="{{ flight_counter }}">
+							<input type="submit" value="View Flight Ratings">
+						</form>
+
+					</br>
+					</td>
+
+				</tr>
+			{%endfor%}	
+		{%endif%}
+		{% if error %}
+			<p class="error"><strong>Error:</strong> {{error}}</p>
+		{% endif %}
+	</table>
+	<br></br>
+
+	
+	<a href="/logout">Logout</a>
+	
+	
+	<style type="text/css">
+		table, th, td{
+			border: 1px solid black;
+		}
+	</style>
+</body>
+
+
+</html>

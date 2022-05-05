@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+{% if not message %}
+	<p><h1>Welcome to Our Air Ticket System</h1>
+		<h3>Please choose one of the following options:</h3></p>
+	<a href="/flight_search"">Search flights</a></br>
+	<a href="/login">Login</a></br>
+	<a href="/customer_registration">Register as a customer</a></br>
+	<a href="/staff_registration">Register as airline staff</a></br>
+	<p id="flights"></p>
+
+		{% for flight in flights%}
+			<p>{{flight}}</p>
+		{% endfor %}
+		{% if error %}
+			<p class="error"><strong>Error:</strong> {{error}}</p>
+		{% endif %}
+{% endif %}
+
+{% if message %}
+	<a href="/logout">Logout</a>
+	<a href="/remove_account">Remove Account</a>
+	<p class="message">You are logged in {{message}}. You have {{num}} follower(s)</p> </br>
+	<a href="/tweets">View your tweets</a> </br>
+	<a href="/find_people">Find people to follow</a> </br>
+	<a href="/unfollow">Unfollow someone</a> </br>
+	<a href="/view_followed">View people you have followed</a> </br>
+	</br>
+
+        <h4>15 most recent tweets from you and your followers </h4> </br>
+
+	{% for line in tweets%}
+	        <p>{{line}}</p>
+	        <hr>
+	{% endfor %}
+{% endif %}
+
+	<script>
+		function flight_search() {
+			document.getElementById("flights").innerHTML = "";
+		}
+	</script>
+</body>
+
+</html>

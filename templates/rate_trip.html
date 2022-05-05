@@ -1,0 +1,79 @@
+<html>
+<head>
+</head>
+<body>
+	<h1>Welcome {{name}}!</h1>
+	<h2>What would you like to do today?</h2>
+    <form action="/flight_search" method="GET">
+  		<input type="submit" value="Search for flights">
+	</form></br>
+	<a><b>Rate a recent trip</b></a></br>
+    <form action="/purchase_history" method="POST">
+  		<input type="submit" value="View Flight Purchase History">
+	</form></br>
+    <a href="/customer_home">Return to homepage</a></br>
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+	#feedback{
+		width: 150px;
+	}
+
+</style>
+{% if flights %}
+<h2>Purchased flight tickets:</h2>
+<table>
+	<th>Airline</th>
+	<th>Flight Number</th>
+	<th>Origin Airport</th>
+	<th>Origin City</th>
+	<th>Destination Airport</th>
+	<th>Destination City</th>
+	<th>Departure Date</th>
+    <th>Rate Trip</th>
+
+		{% set flight_counter = 0 %}
+		{% for flight in flights %}
+			{% set flight_counter = loop.index-1 %}
+			<tr>
+				<td>{{flight['airline_name']}}</td>
+				<td>{{flight['flight_num']}}</td>
+				<td>{{flight['origin_airport']}}</td>
+				<td>{{flight['origin_city']}}</td>
+				<td>{{flight['destination_airport']}}</td>
+				<td>{{flight['destination_city']}}</td>
+				<td>{{flight['dept_date_time']}}</td>
+				<td>
+					<form action="/rate_this_trip" method="POST">
+						<input type="hidden" id="flight_to_rate" name="flight_to_rate" value="{{ flight_counter }}">
+  						<input type="submit" value="rate trip">
+					</form></br>
+				</td>
+			</tr>
+		{% endfor %}
+</table>
+{% endif %}
+	{% if trip %}
+		<form action="/add_feedback" method="POST">
+			<label for="feedback">Please tell us about your flight experience here (350 characters max):</label></br>
+			<input type="textarea" id="feedback" name="feedback" rows="200" cols="100" maxlength="350" required/></textarea></br></br>
+			<input type="submit" name="feedback_comment" value="submit comments">
+            <input type="text" name = "feedback_rating" placeholder="country"/></br>
+		</form></br>
+	{% endif %}
+	{% if feedback %}
+		<p><h3>Thank you for you feedback {{name}}!</h3></br>
+			We'll contact you soon if any concerns were raised in your feedback.
+			Thank you for flying {{rated_flight['airline']}}!
+		</p>
+	{% endif %}
+    {% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+    {% endif %}
+<a href="/logout">Logout</a>
+
+</body>
+
+</html>

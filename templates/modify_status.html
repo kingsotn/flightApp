@@ -1,0 +1,65 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<h1>Modify Flights for {{employee_airline}}</h1>
+
+	<table>
+		<th>ID</th>	
+		<th>Airline Name</th>	
+		<th>Flight Number</th>
+		<th>Depart date time</th>
+		<th>status</th>
+		<th>origin_airport</th>
+		<th>origin_city</th>
+		<th>origin country</th>
+		<th>destination airport</th>
+		<th>destination city</th>
+		<th>destination country</th>
+		<th>New Status</th>
+
+
+		{% if flight_to_modify %}
+				<tr>
+					<td>{{flight_to_modify['ID']}}</td>
+					<td>{{flight_to_modify['airline_name']}}</td>
+					<td>{{flight_to_modify['flight_num']}}</td>
+					<td>{{flight_to_modify['dept_date_time']}}</td>
+					<td>{{flight_to_modify['status']}}</td>
+					<td>{{flight_to_modify['origin_airport']}}</td>
+					<td>{{flight_to_modify['origin_city']}}</td>
+					<td>{{flight_to_modify['origin_country']}}</td>
+					<td>{{flight_to_modify['destination_airport']}}</td>
+					<td>{{flight_to_modify['destination_city']}}</td>
+					<td>{{flight_to_modify['destination_country']}}</td>
+					<td>
+						<form action="/new_status" method="POST">
+							<label for="status">Choose New Status</label>
+							<input list="statuses" name="status" id="status" required/>
+							<datalist id="statuses">
+								<option value="ON-TIME">ON-TIME</option>
+								<option value="DELAYED">DELAYED</option>
+							</datalist></br>
+							<input type="submit" value="change status">
+						</form></br>
+					</td>
+				</tr>	
+		{%endif%}
+		{% if error %}
+			<p class="error"><strong>Error:</strong> {{error}}</p>
+		{% endif %}
+	</table>
+			{% if success %}
+				<p>Flight status changed successfully.</p>
+			{% endif %}
+	<a href="/staff_home">Go back</a></br>
+	<a href="/logout"></a>
+	<style type="text/css">
+		table, th, td{
+			border: 1px solid black;
+		}
+	</style>
+
+
+	</body>
+</html>

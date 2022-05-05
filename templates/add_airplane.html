@@ -1,0 +1,45 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <p><h3>Create a new airplane for {{employee_airline}}:</h3></p>
+        <form action="/add_airplane" method="POST">
+            <input type="text" id="ID" name = "ID" placeholder="Airplane ID" maxlength="10" required/> </br>
+            <input type="text" name = "num_seats" placeholder="Number of Seats" required/></br>
+            <input type="text" name = "manufacturer" placeholder="Manufacturer" required/></br>
+            <input type="text" name = "age" placeholder="Age" required/></br>
+            <input type="submit" value = "Create New Airplane" />
+        </form>            
+
+        <table>
+            <th>Flight ID</th>	
+            <th>Airline Name</th>	
+            <th>Number of Seats</th>
+            <th>Manufacturer</th>
+            <th>Age</th>
+            {% if airplane_data %}
+                {% for airplane in airplane_data %}
+                    <tr>
+                        <td>{{airplane['ID']}}</td>
+                        <td>{{airplane['name']}}</td>
+                        <td>{{airplane['num_seats']}}</td>
+                        <td>{{airplane['manufacturer']}}</td>
+                        <td>{{airplane['age']}}</td>
+                    </tr>
+                {%endfor%}	
+            {%endif%}
+        </table>           
+
+        {% if success %}
+            <p>successfully created a new airplane</p>
+        {% endif %}
+
+        <a href="/staff_home">Go back</a>
+        <a href="/logout">Logout</a>
+        <style type="text/css">
+            table, th, td{
+                border: 1px solid black;
+            }
+        </style>
+    </body>
+</html>

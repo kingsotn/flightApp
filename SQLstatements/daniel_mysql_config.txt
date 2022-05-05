@@ -1,0 +1,7 @@
+# Configure MySQL
+conn = pymysql.connect(host='localhost',
+                       user='root',
+                       password='',
+                       db='air_ticket_system',
+                       charset='utf8mb4',
+                       cursorclass=pymysql.cursors.DictCursor)

@@ -1,0 +1,71 @@
+<html>
+<head>
+</head>
+<body>
+	<h1>Welcome {{name}}!</h1>
+	<h2>What would you like to do today?</h2>
+	<form action="/flight_search" method="GET">
+  		<input type="submit" value="Search for flights">
+	</form></br>
+	<form action="/rate_trip" method="POST">
+  		<input type="submit" value="Rate a recent trip">
+	</form></br>
+	<form action="/purchase_history" method="POST">
+  		<input type="submit" value="View Flight Purchase History">
+	</form></br>
+    <a href="/logout">Logout</a></br>
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+{% if flights %}
+<h2>Here are your upcoming flights...</h2>
+	<h3>Please note that cancellations can be processed only more than 24 hours before departure time!</h3>
+<table>
+	<th>Airline</th>
+	<th>Flight Number</th>
+	<th>Origin Airport</th>
+	<th>Origin City</th>
+	<th>Destination Airport</th>
+	<th>Destination City</th>
+	<th>Departure date</th>
+	<th>Status</th>
+	<th>Cancel trip</th>
+
+		{% set flight_counter = 0 %}
+		{% for flight in flights %}
+			{% set flight_counter = loop.index-1 %}
+			<tr>
+				<td>{{flight['airline_name']}}</td>
+				<td>{{flight['flight_num']}}</td>
+				<td>{{flight['origin_airport']}}</td>
+				<td>{{flight['origin_city']}}</td>
+				<td>{{flight['destination_airport']}}</td>
+				<td>{{flight['destination_city']}}</td>
+				<td>{{flight['dept_date_time']}}</td>
+				<td>{{flight['status']}}</td>
+				<td>
+					<form action="/cancel_trip" method="POST">
+						<input type="hidden" id="flight_to_cancel" name="flight_to_cancel" value="{{ flight_counter }}">
+  						<input type="submit" value="cancel trip">
+					</form></br>
+				</td>
+			</tr>
+		{% endfor %}
+
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+	{% if canceled %}
+		<p><strong></strong> Your flight has been canceled successfully.</p>
+	{% endif %}
+</table>
+{% endif %}
+<a href="/logout">Logout</a>
+
+</body>
+
+
+</html>

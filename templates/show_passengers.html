@@ -1,0 +1,72 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <p><h3>Showing passengers for flight:</h3>
+            Airline: {{airline}}, Airplane ID: {{airplane_id}}, Flight Number: {{flight_num}}, Departure: {{dept_date_time}}</br>
+        </p>
+        {% if isEmpty %}
+            <p>There are no passengers</p>
+        {% else %}
+            <table>
+                <th>Passenger Name</th>
+		        <th>Passenger Info</th>
+
+                {% set pass_counter = 0 %}
+                {% for passenger in passenger_data %}
+                    {% set pass_counter = loop.index-1 %}
+                <tr>
+                    <td>{{passenger['name']}}</td>
+                    <td>
+                        <form action="/show_customers_flights" method="POST">
+							<input type="hidden" name="pass_counter" value="{{ pass_counter }}">
+							<input type="submit" value="Show passenger's flights">
+						</form>
+                    </td>
+                </tr>
+                {%endfor%}
+
+            </table>
+        {% endif %}
+
+    {% if customer_flights %}
+        <p>Showing all flights for {{passenger_to_show['name']}}</p>
+        <table>
+            <th>ID</th>
+            <th>Airline Name</th>
+            <th>Flight Number</th>
+            <th>Depart date time</th>
+            <th>status</th>
+            <th>origin_airport</th>
+            <th>origin_city</th>
+            <th>origin country</th>
+            <th>destination airport</th>
+            <th>destination city</th>
+            <th>destination country</th>
+
+            {% for flight in customer_flights %}
+            <tr>
+                <td>{{flight['ID']}}</td>
+                <td>{{flight['airline_name']}}</td>
+                <td>{{flight['flight_num']}}</td>
+                <td>{{flight['dept_date_time']}}</td>
+                <td>{{flight['status']}}</td>
+                <td>{{flight['origin_airport']}}</td>
+                <td>{{flight['origin_city']}}</td>
+                <td>{{flight['origin_country']}}</td>
+                <td>{{flight['destination_airport']}}</td>
+                <td>{{flight['destination_city']}}</td>
+                <td>{{flight['destination_country']}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+    </br>
+    <a href="/staff_home">Go back</a>
+    <style type="text/css">
+            table, th, td{
+                border: 1px solid black;
+            }
+    </style>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<html>
+<head>
+</head>
+<body>
+	<h1>Welcome {{name}}!</h1>
+	<h2>What would you like to do today?</h2>
+	<form action="/flight_search" method="GET">
+  		<input type="submit" value="Search for flights">
+	</form></br>
+	<form action="/rate_trip" method="POST">
+  		<input type="submit" value="Rate a recent trip">
+	</form></br>
+	<a><b>View flight purchase history</b></a></br>
+    <a href="/customer_home">Return to homepage</a></br>
+
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+<p>Showing spending between {{begin_date}} and {{end_date}}</p>
+	<p><b>Choose Range:</b></p>
+	<form action="spending_date_range" method="POST">
+		<label for="begin_date">From:</label>
+		<input type="month" id="begin_date" name="begin_date" required>
+		<label for="end_date">To:</label>
+		<input type="month" id="end_date" name="end_date" required>
+		<input type="submit" value="show spending within range"></br>
+	</form>
+<table>
+	<th>Month</th>
+	<th>Amount Spent</th>
+{% for month in months.keys() %}
+	<tr>
+		<td>{{month}}</td>
+		<td>${{months[month]}}</td>
+	</tr>
+{% endfor %}
+</table>
+
+{% if flights %}
+<h2>Purchased flight tickets:</h2>
+<table>
+	<th>Airline</th>
+	<th>Flight Number</th>
+	<th>Origin Airport</th>
+	<th>Origin City</th>
+	<th>Destination Airport</th>
+	<th>Destination City</th>
+	<th>Departure Date</th>
+    <th>Price Sold</th>
+
+
+		{% for flight in flights %}
+			<tr>
+				<td>{{flight['airline_name']}}</td>
+				<td>{{flight['flight_num']}}</td>
+				<td>{{flight['origin_airport']}}</td>
+				<td>{{flight['origin_city']}}</td>
+				<td>{{flight['destination_airport']}}</td>
+				<td>{{flight['destination_city']}}</td>
+				<td>{{flight['dept_date_time']}}</td>
+				<td>{{flight['sold_price']}}</td>
+			</tr>
+		{% endfor %}
+</table>
+{% endif %}
+	<p>You spent a total of: ${{total}}</p>
+    {% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+    {% endif %}
+<a href="/logout">Logout</a>
+
+</body>
+
+
+</html>

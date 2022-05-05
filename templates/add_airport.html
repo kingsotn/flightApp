@@ -1,0 +1,46 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <p><h3>Create a new airport</h3></p>
+        <form action="/add_airport" method="POST">
+            <input type="text" id="code" name = "code" placeholder="airport code" required/> </br>
+            <input type="text" name = "name" placeholder="airport name" required/></br>
+            <input type="text" name = "city" placeholder="city" required/></br>
+            <input type="text" name = "country" placeholder="country" required/></br>
+            <input type="text" name = "type" placeholder="Domestic, International or Both" required/></br>
+            <input type="submit" value = "Create New Airport" />
+        </form>            
+
+        <table>
+            <th>airport code</th>	
+            <th>airport name</th>	
+            <th>city</th>
+            <th>country</th>
+            <th>Domestic, International or Both</th>
+            {% if data %}
+                {% for airport in data %}
+                    <tr>
+                        <td>{{airport['code']}}</td>
+                        <td>{{airport['name']}}</td>
+                        <td>{{airport['city']}}</td>
+                        <td>{{airport['country']}}</td>
+                        <td>{{airport['type']}}</td>
+                    </tr>
+                {%endfor%}	
+            {%endif%}
+        </table>           
+
+        {% if success %}
+            <p>successfully created a new airport</p>
+        {% endif %}
+
+        <a href="/staff_home">Go back</a>
+        <a href="/logout">Logout</a>
+        <style type="text/css">
+            table, th, td{
+                border: 1px solid black;
+            }
+        </style>
+    </body>
+</html>
