@@ -1,3 +1,13 @@
+# Table of Contents
+
+1. [Introduction](#introduction)
+2. [File Explanation](#file explanation)
+3. [Use Cases](#use cases)
+
+## Introduction
+
+This project was created by DanLongman89 and kingsotn. It simulates a flight web system incoorporating MySQL, Flask, and HTML.
+
 # File Explanation
 
 ### SQL Files
