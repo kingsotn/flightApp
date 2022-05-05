@@ -1,7 +1,7 @@
 # Table of Contents
 
 1. [Introduction](#introduction)
-2. [File Explanation](#file explanation)
+2. [File Explanation](#File Explanation)
 3. [Use Cases](#use cases)
 
 ## Introduction
