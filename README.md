@@ -8,7 +8,7 @@
 
 This project was created by DanLongman89 and kingsotn. It simulates a flight web system incoorporating MySQL, Flask, and HTML.
 
-# File Explanation
+## File Explanation
 
 ### SQL Files
 
@@ -72,7 +72,7 @@ This project was created by DanLongman89 and kingsotn. It simulates a flight web
 
 
 
-# Use Cases
+## Use Cases
 
 ### Application:
 
