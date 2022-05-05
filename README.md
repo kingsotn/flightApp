@@ -8,6 +8,9 @@
 
 This project was created by DanLongman89 and kingsotn. It simulates a flight web system incoorporating MySQL, Flask, and HTML. This repo only shows the final project uploaded, all original commits, edits, and changes were worked on in the private repository https://github.com/DanLongman89/databasesApp
 
+
+
+
 ## File Explanation
 
 ### SQL Files
@@ -69,6 +72,9 @@ This project was created by DanLongman89 and kingsotn. It simulates a flight web
 ### master
 
 [master.py](https://github.com/kingsotn/flightApp/blob/master/master.py): Backend Python3 code written with Flask
+
+
+
 
 
 
